@@ -1,34 +1,37 @@
 <?php
-    /*
-      List of Rooms, Suspects, and Weapons
+$rooms = [
+  'Study' => [
+    'items' => ['Mrs. White', 'the Rope']
+  ],
+  'Hall' => [
+    'items' => ['the Lead Pipe']
+  ],
+  'Lounge' => [
+    'items' => ['Professor Plum']
+  ],
+  'Library' => [
+    'items' => ['the Candlestick']
+  ],
+  'Dining Room' => [
+    'items' => ['Mrs. Peacock']
+  ],
+  'Billard Room' => [
+    'items' => ['Colonel Mustard', 'the Wrench']
+  ],
+  'Conservatory' => [
+    'items' => []
+  ],
+  'Ballroom' => [
+    'items' => ['Mr. Green']
+  ],
+  'Kitchen' => [
+    'items' => ['the Knife']
+  ]
+];
 
-      Rooms: 
-      'Study',
-      'Hall', 
-      'Lounge',
-      'Library',
-      'Dining Room',
-      'Billard Room',
-      'Conservatory',      
-      'Ballroom',
-      'Kitchen'
-
-      Suspects: 
-      'Colonel Mustard',
-      'Miss Scarlet',
-      'Mr. Green',
-      'Mrs. Peacock',
-      'Mrs. White',
-      'Professor Plum'
-
-      Weapons:
-      'Candlestick',
-      'Knife',
-      'Lead Pipe',
-      'Revolver',
-      'Rope',
-      'Wrench'
-  */
+if (isset($_GET['room']) && isset($rooms[$_GET['room']])) {
+  $items = $rooms[$_GET['room']]['items'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,13 +48,23 @@
     <h1>Clue</h1>
   </header>
   <div class="items"> 
+  <?php if (isset($items)) : ?>
+    <?php if (count($items)) : ?>
+    <p>You found <?php echo implode(' and ', $items); ?>
+    <?php else : ?>
+    <p>You found nothing</p>
+    <?php endif; ?>
+  <?php else : ?>
     <p>Select a room to get a clue.</p>
+  <?php endif; ?>
   </div>
   <main class="container">
+  <?php foreach ($rooms as $room => $items) : ?>
       <div class="room">
-        <a href="?room=Study">Study</a>
+        <a href="?room=<?php echo $room; ?>"><?php echo $room; ?></a>
       </div>
-      <div class="room">
+    <?php endforeach; ?>
+      <!-- <div class="room">
         <a href="?room=Hall">Hall</a>
       </div>
       <div class="room">
@@ -74,7 +87,7 @@
       </div>
       <div class="room">
         <a href="?room=Kitchen">Kitchen</a>
-      </div>
+      </div> -->
   </main>
 </body>
 </html>
